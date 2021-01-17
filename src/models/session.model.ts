@@ -1,19 +1,14 @@
 import {Entity, model, property} from '@loopback/repository';
+import {Pkg} from './pkg.model';
 
 @model()
 export class Session extends Entity {
   @property({
-    type: 'number',
-    id: true,
-    generated: true,
-  })
-  id?: number;
-
-  @property({
     type: 'string',
+    id: true,
     required: true,
   })
-  sid: string;
+  sid?: string;
 
   @property({
     type: 'number',
@@ -25,7 +20,7 @@ export class Session extends Entity {
     type: 'array',
     itemType: 'object',
   })
-  pkgs?: object[];
+  pkgs?: Pkg[];
 
 
   constructor(data?: Partial<Session>) {

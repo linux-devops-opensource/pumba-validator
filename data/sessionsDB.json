@@ -1,0 +1,10 @@
+{
+  "ids": {
+    "Session": 2
+  },
+  "models": {
+    "Session": {
+      "shuki": "{\"sid\":\"shuki\",\"statusCode\":0,\"pkgs\":[{}]}"
+    }
+  }
+}
