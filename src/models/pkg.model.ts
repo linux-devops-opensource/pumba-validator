@@ -3,17 +3,11 @@ import {Model, model, property} from '@loopback/repository';
 @model()
 export class Pkg extends Model {
   @property({
-    type: 'number',
-    id: true,
-    generated: true,
-  })
-  id?: number;
-
-  @property({
     type: 'string',
+    id: true,
     required: true,
   })
-  name: string;
+  name?: string;
 
   @property({
     type: 'number',
