@@ -39,7 +39,7 @@ export class SessionsController {
         'application/json': {
           schema: getModelSchemaRef(Session, {
             title: 'NewSession',
-            
+
           }),
         },
       },
