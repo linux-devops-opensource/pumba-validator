@@ -4,7 +4,7 @@
   },
   "models": {
     "Session": {
-      "shuki": "{\"sid\":\"shuki\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"},{\"statusCode\":4,\"msg\":\"success\"}]}"
+      "shuki": "{\"sid\":\"shuki\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}"
     }
   }
 }

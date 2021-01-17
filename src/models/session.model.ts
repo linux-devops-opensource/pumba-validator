@@ -8,7 +8,7 @@ export class Session extends Entity {
     id: true,
     required: true,
   })
-  sid?: string;
+  sid: string;
 
   @property({
     type: 'number',
@@ -18,9 +18,9 @@ export class Session extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'object',
+    itemType: 'object'
   })
-  pkgs?: Pkg[];
+  pkgs: Pkg[];
 
 
   constructor(data?: Partial<Session>) {
