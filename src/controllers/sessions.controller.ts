@@ -60,7 +60,6 @@ export class SessionsController {
         "name": "validator-" + type + "-" + session.sid
       },
       "spec": {
-        "ttlSecondsAfterFinished": 1,
         "template": {
           "spec": {
             "containers": [{
