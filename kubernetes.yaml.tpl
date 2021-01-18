@@ -31,10 +31,6 @@ spec:
         ports:
         - containerPort: 5000
           protocol: TCP
-
-        ports:
-        - containerPort: 5000
-          protocol: TCP
         resources:
           requests:
               memory: "50Mi"
