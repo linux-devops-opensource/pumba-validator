@@ -1,6 +1,6 @@
 {
   "ids": {
-    "Session": 42
+    "Session": 43
   },
   "models": {
     "Session": {
@@ -42,7 +42,8 @@
       "shir25": "{\"sid\":\"shir25\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
       "shir26": "{\"sid\":\"shir26\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
       "shir27": "{\"sid\":\"shir27\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
-      "adi": "{\"sid\":\"adi\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}"
+      "adi": "{\"sid\":\"adi\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
+      "adi1": "{\"sid\":\"adi1\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}"
     }
   }
 }
