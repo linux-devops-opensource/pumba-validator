@@ -1,6 +1,6 @@
 {
   "ids": {
-    "Session": 13
+    "Session": 25
   },
   "models": {
     "Session": {
@@ -14,7 +14,18 @@
       "shuaaasdki10asasasdddqw": "{\"sid\":\"shuaaasdki10asasasdddqw\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}",
       "shuaaasdki10asaasdsasdddqw": "{\"sid\":\"shuaaasdki10asaasdsasdddqw\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}",
       "shuaaasdkwi10asaasdsasdddqw": "{\"sid\":\"shuaaasdkwi10asaasdsasdddqw\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}",
-      "shuaaasdkwi1asd0asaasdsasdddqw": "{\"sid\":\"shuaaasdkwi1asd0asaasdsasdddqw\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}"
+      "shuaaasdkwi1asd0asaasdsasdddqw": "{\"sid\":\"shuaaasdkwi1asd0asaasdsasdddqw\",\"statusCode\":2,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}",
+      "shir": "{\"sid\":\"shir\",\"statusCode\":1,\"pkgs\":[]}",
+      "shir1": "{\"sid\":\"shir1\",\"statusCode\":1,\"pkgs\":[]}",
+      "shir2": "{\"sid\":\"shir2\",\"statusCode\":1,\"pkgs\":[]}",
+      "shir3": "{\"sid\":\"shir3\",\"statusCode\":1,\"pkgs\":[]}",
+      "shir4": "{\"sid\":\"shir4\",\"statusCode\":1,\"pkgs\":[]}",
+      "shir5": "{\"sid\":\"shir5\",\"statusCode\":0,\"pkgs\":[{\"name\":\"shuki@12\",\"statusCode\":4,\"msg\":\"success\"},{\"name\":\"shukitest@12\",\"statusCode\":2,\"msg\":\"failed\"}]}",
+      "shir6": "{\"sid\":\"shir6\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
+      "shir7": "{\"sid\":\"shir7\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
+      "shir8": "{\"sid\":\"shir8\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
+      "shir9": "{\"sid\":\"shir9\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}",
+      "shir10": "{\"sid\":\"shir10\",\"statusCode\":1,\"pkgs\":[{\"type\":\"npm\"}]}"
     }
   }
 }

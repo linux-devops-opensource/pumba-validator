@@ -20,7 +20,7 @@ import {
 
   requestBody
 } from '@loopback/rest';
-import {Session} from '../models';
+import {Pkg, Session} from '../models';
 import {SessionRepository} from '../repositories';
 
 const axios = require('axios').default;
@@ -46,15 +46,15 @@ export class SessionsController {
         'application/json': {
           schema: getModelSchemaRef(Session, {
             title: 'NewSession',
-
           }),
         },
       },
     })
     session: Session,
   ): Promise<Session> {
+    let type:any = (Object.values(session.pkgs[0])[0])
     let headers = {
-      Authorization: 'Bearer ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklqZFdaSFpoTlZWd1JFMVJSbEJ5ZGtaM1NYSlVhVEZ0UkhaaFFXVm1OM3BLT0ZwR1NXRm5PVlozVTFraWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpyZFdKbExYTjVjM1JsYlNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKa1pXWmhkV3gwTFhSdmEyVnVMV2c0WTJ4eElpd2lhM1ZpWlhKdVpYUmxjeTVwYnk5elpYSjJhV05sWVdOamIzVnVkQzl6WlhKMmFXTmxMV0ZqWTI5MWJuUXVibUZ0WlNJNkltUmxabUYxYkhRaUxDSnJkV0psY201bGRHVnpMbWx2TDNObGNuWnBZMlZoWTJOdmRXNTBMM05sY25acFkyVXRZV05qYjNWdWRDNTFhV1FpT2lKbFpHSTBPREZtWmkwME5UUmtMVFJpWWpNdFlUWmxaUzA0TnpSalpEQmtaalF5T0RraUxDSnpkV0lpT2lKemVYTjBaVzA2YzJWeWRtbGpaV0ZqWTI5MWJuUTZhM1ZpWlMxemVYTjBaVzA2WkdWbVlYVnNkQ0o5LktnMXVSN1d1TjlVbW1fYTNVbWFsUlNTcFJVRHRnSGJKeVA4LWFCalZIZjlGeWVrOUY3clNrWmNtWEtsc2FtcjNHT1FZbXdzVVpUNEhXLVY3OGx3RHpXQVcyZDZuZ2tlZG5ZMG1MbG1zRDFUcXB3UG9rWmYxRDdPMlNPVzhIendLSzBHU3BuSWhDeFB4RGMyU1Z2SGM5dnFQRjBWeF9lbDBhWDJTcFlaWmQwS0w2Wm1oUFBjakxTYVhnM2dwenZDVlRUd19Ha3dENEVyaG5ZaDhQOWI0aEdLYXdaRmozTVp2WlJOT04yMVdXMlRVRHdqcWw4amJ0Nkw1SE9nMEVSaWNmNTJ3S0hiN0cxQnBrcnkybTBBSXY5SXFkWkxIRjNKd2lWNjFkN0p1TW9kTXFJdXJqUWJ6eU9aYW45QUpsb1RQQ3RYSXplUmlxYUhFZWpaSGpQdFlIVjRZbHQ5X2tMbXVLakhfNVRhLTNCTEd4eWdUS19BVkp0dDN0a3JlYjUwN1AySzB1alN5eTl6QllWaWtOUU9GSkFlU1FwU0pyS1A3eDA1cnJhcFVPZFJtbkNwTGZPeWEwYk9YTEh4a3JDNnQydE1wVXQ4akJNal9Rdks5MEFIYkR0MzdWWUR2cFo0TWprZ0dUQ08wVFlKLWcxMWF0ZGVtV0tMNEdtbHJyQm9NbDBqTjlpR0NmbTllbG94Z3Zub2lwYWIzMnA0TEwtX21HbmdYdDhSNmFWVnRjb1hQMUp6U0MwQ2IzLWc3cVkxenpzQktlR2RUVnB0NWp5anZ2Q1BCYzF4blZpMkRiRWFiZG1KdXlUeXBJTC1qekxheHU1WUR0a2U1WWdPZnVwa0xKT1JsS204UndfNEJHaXI0SVdTczZlUjkzQmRYMWc2cXptZnpIaXdOS05R',
+      Authorization: process.env.K8STOKEN,
       Accept: 'application/json',
       'Connection': 'close',
       'Content-Type': 'application/json'
@@ -64,14 +64,14 @@ export class SessionsController {
       "apiVersion": "batch/v1",
       "kind": "Job",
       "metadata": {
-        "name": "pi-with-ttl"
+        "name": "validator-" + type
       },
       "spec": {
         "ttlSecondsAfterFinished": 1,
         "template": {
           "spec": {
             "containers": [{
-              "name": "pi",
+              "name": type,
               "image": "perl",
               "command": ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
             }],
@@ -87,7 +87,7 @@ export class SessionsController {
         console.log(response.status);
       })
       .catch((error: any) => {
-        console.log(error);
+        console.log(error.response.status);
       });
 
     return this.sessionRepository.create(session);
