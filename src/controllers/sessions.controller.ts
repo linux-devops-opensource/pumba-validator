@@ -4,26 +4,33 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
-import {Session} from '../models';
+import {Pkg, Session} from '../models';
 import {SessionRepository} from '../repositories';
+
+const axios = require('axios').default;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 export class SessionsController {
   constructor(
     @repository(SessionRepository)
-    public sessionRepository : SessionRepository,
-  ) {}
+    public sessionRepository: SessionRepository,
+  ) { }
 
   @post('/sessions', {
     responses: {
@@ -39,13 +46,50 @@ export class SessionsController {
         'application/json': {
           schema: getModelSchemaRef(Session, {
             title: 'NewSession',
-
           }),
         },
       },
     })
     session: Session,
   ): Promise<Session> {
+    let type:any = (Object.values(session.pkgs[0])[0])
+    let headers = {
+      Authorization: process.env.K8STOKEN,
+      Accept: 'application/json',
+      'Connection': 'close',
+      'Content-Type': 'application/json'
+    }
+
+    let data = {
+      "apiVersion": "batch/v1",
+      "kind": "Job",
+      "metadata": {
+        "name": "validator-" + type
+      },
+      "spec": {
+        "ttlSecondsAfterFinished": 1,
+        "template": {
+          "spec": {
+            "containers": [{
+              "name": type,
+              "image": "perl",
+              "command": ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+            }],
+            "restartPolicy": "Never"
+          }
+        }
+      }
+    }
+    await axios.post('https://51.138.70.243/apis/batch/v1/namespaces/pumba/jobs',
+      data,
+      headers)
+      .then((response: any) => {
+        console.log(response.status);
+      })
+      .catch((error: any) => {
+        console.log(error.response.status);
+      });
+
     return this.sessionRepository.create(session);
   }
 
