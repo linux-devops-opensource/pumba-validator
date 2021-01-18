@@ -53,18 +53,11 @@ export class SessionsController {
     session: Session,
   ): Promise<Session> {
     let type:any = (Object.values(session.pkgs[0])[0])
-    let headers = {
-      Authorization: process.env.K8STOKEN,
-      Accept: 'application/json',
-      'Connection': 'close',
-      'Content-Type': 'application/json'
-    }
-
     let data = {
       "apiVersion": "batch/v1",
       "kind": "Job",
       "metadata": {
-        "name": "validator-" + type
+        "name": "validator-" + type + "-" + session.sid
       },
       "spec": {
         "ttlSecondsAfterFinished": 1,
@@ -80,9 +73,16 @@ export class SessionsController {
         }
       }
     }
-    await axios.post('https://51.138.70.243/apis/batch/v1/namespaces/pumba/jobs',
-      data,
-      headers)
+    var config = {
+      method: 'post',
+      url: 'https://51.138.70.243/apis/batch/v1/namespaces/pumba/jobs',
+      headers: {
+        'Authorization': process.env.K8STOKEN,
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    await axios(config)
       .then((response: any) => {
         console.log(response.status);
       })
