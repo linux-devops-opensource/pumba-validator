@@ -50,7 +50,7 @@ export class SessionsController {
       "apiVersion": "batch/v1",
       "kind": "Job",
       "metadata": {
-        "name": "validator-" + type
+        "name": "validator-" + type + "-" + session.sid
       },
       "spec": {
         "template": {
@@ -60,7 +60,10 @@ export class SessionsController {
               "image": 'gcr.io/feisty-return-300415/pumba-' + type + '-validator:latest',
               "env": [{
                 "name": "SID",
-                "value": type
+                "value": session.sid
+              },{
+                "name": "DEBUG",
+                "value": "debug:*"
               }],
             }],
             "restartPolicy": "Never"
