@@ -9,15 +9,8 @@ import {
 import {
   del, get,
   getModelSchemaRef, param,
-
-
   patch, post,
-
-
-
-
   put,
-
   requestBody
 } from '@loopback/rest';
 import {Pkg, Session} from '../models';
@@ -57,15 +50,18 @@ export class SessionsController {
       "apiVersion": "batch/v1",
       "kind": "Job",
       "metadata": {
-        "name": "validator-" + type + "-" + session.sid
+        "name": "validator-" + type
       },
       "spec": {
         "template": {
           "spec": {
             "containers": [{
-              "name": type,
-              "image": "perl",
-              "command": ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+              "name": "validator-" + type + "-" + session.sid,
+              "image": 'gcr.io/feisty-return-300415/pumba-' + type + '-validator:latest',
+              "env": [{
+                "name": "SID",
+                "value": type
+              }],
             }],
             "restartPolicy": "Never"
           }
