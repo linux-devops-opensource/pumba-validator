@@ -11,6 +11,12 @@ export class Session extends Entity {
   sid: string;
 
   @property({
+    type: 'string',
+    required: true,
+  })
+  type: string;
+
+  @property({
     type: 'number',
     required: true,
   })
