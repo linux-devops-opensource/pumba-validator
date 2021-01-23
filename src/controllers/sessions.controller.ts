@@ -42,6 +42,21 @@ export class SessionsController {
     session: Session,
   ): Promise<Session> {
     let type = session.type
+    var deleteJobConfig = {
+      method: 'delete',
+      url: 'https://51.138.70.243/apis/batch/v1/namespaces/pumba/jobs/validator-' + type + '-' + session.sid,
+      headers: {
+        'Authorization': process.env.K8STOKEN,
+        'Content-Type': 'application/json'
+      }
+    }
+    await axios(deleteJobConfig)
+      .then((response: any) => {
+        console.log(response.status);
+      })
+      .catch((error: any) => {
+        console.log(error.response.data.message);
+      });
     let data = {
       "apiVersion": "batch/v1",
       "kind": "Job",
@@ -67,7 +82,7 @@ export class SessionsController {
         }
       }
     }
-    var config = {
+    var createJobConfig = {
       method: 'post',
       url: 'https://51.138.70.243/apis/batch/v1/namespaces/pumba/jobs',
       headers: {
@@ -76,7 +91,7 @@ export class SessionsController {
       },
       data : data
     };
-    await axios(config)
+    await axios(createJobConfig)
       .then((response: any) => {
         console.log(response.status);
       })
