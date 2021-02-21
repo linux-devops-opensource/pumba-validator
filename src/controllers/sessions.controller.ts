@@ -1,19 +1,15 @@
 import {
-  Count,
-  CountSchema,
-  Filter,
   FilterExcludingWhere,
   repository,
-  Where
 } from '@loopback/repository';
 import {
   del, get,
-  getModelSchemaRef, param,
-  patch, post,
+  getModelSchemaRef, HttpErrors, param,
+  post,
   put,
-  requestBody
+  requestBody,
 } from '@loopback/rest';
-import {Pkg, Session} from '../models';
+import {Session} from '../models';
 import {SessionRepository} from '../repositories';
 
 const axios = require('axios').default;
@@ -25,12 +21,12 @@ export class SessionsController {
     public sessionRepository: SessionRepository,
   ) { }
 
-  @post('/sessions', {
+  @post('/session', {
     responses: {
       '200': {
         description: 'Session model instance',
         content: {'application/json': {schema: getModelSchemaRef(Session)}},
-      },
+      }
     },
   })
   async create(
@@ -45,7 +41,7 @@ export class SessionsController {
     })
     session: Session,
   ): Promise<Session> {
-    let type:any = (Object.values(session.pkgs[0])[0])
+    let type = session.type
     let data = {
       "apiVersion": "batch/v1",
       "kind": "Job",
@@ -85,70 +81,13 @@ export class SessionsController {
         console.log(response.status);
       })
       .catch((error: any) => {
-        console.log(error.response.status);
+        console.log(error.response.data.message);
+        throw new HttpErrors.BadRequest(error.response.data.message)
       });
+      return this.sessionRepository.create(session);
+    }
 
-    return this.sessionRepository.create(session);
-  }
-
-  @get('/sessions/count', {
-    responses: {
-      '200': {
-        description: 'Session model count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async count(
-    @param.where(Session) where?: Where<Session>,
-  ): Promise<Count> {
-    return this.sessionRepository.count(where);
-  }
-
-  @get('/sessions', {
-    responses: {
-      '200': {
-        description: 'Array of Session model instances',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'array',
-              items: getModelSchemaRef(Session, {includeRelations: true}),
-            },
-          },
-        },
-      },
-    },
-  })
-  async find(
-    @param.filter(Session) filter?: Filter<Session>,
-  ): Promise<Session[]> {
-    return this.sessionRepository.find(filter);
-  }
-
-  @patch('/sessions', {
-    responses: {
-      '200': {
-        description: 'Session PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Session, {partial: true}),
-        },
-      },
-    })
-    session: Session,
-    @param.where(Session) where?: Where<Session>,
-  ): Promise<Count> {
-    return this.sessionRepository.updateAll(session, where);
-  }
-
-  @get('/sessions/{id}', {
+  @get('/session/{id}', {
     responses: {
       '200': {
         description: 'Session model instance',
@@ -167,28 +106,7 @@ export class SessionsController {
     return this.sessionRepository.findById(id, filter);
   }
 
-  @patch('/sessions/{id}', {
-    responses: {
-      '204': {
-        description: 'Session PATCH success',
-      },
-    },
-  })
-  async updateById(
-    @param.path.string('id') id: string,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Session, {partial: true}),
-        },
-      },
-    })
-    session: Session,
-  ): Promise<void> {
-    await this.sessionRepository.updateById(id, session);
-  }
-
-  @put('/sessions/{id}', {
+  @put('/session/{id}', {
     responses: {
       '204': {
         description: 'Session PUT success',
@@ -202,7 +120,7 @@ export class SessionsController {
     await this.sessionRepository.replaceById(id, session);
   }
 
-  @del('/sessions/{id}', {
+  @del('/session/{id}', {
     responses: {
       '204': {
         description: 'Session DELETE success',
