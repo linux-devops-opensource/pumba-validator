@@ -53,7 +53,7 @@ export class SessionsController {
           "spec": {
             "containers": [{
               "name": "validator-" + type + "-" + session.sid,
-              "image": 'gcr.io/feisty-return-300415/pumba-' + type + '-validator:latest',
+              "image": 'gcr.io/sodium-inverter-285420/pumba-' + type + '-validator:test',
               "env": [{
                 "name": "SID",
                 "value": session.sid
