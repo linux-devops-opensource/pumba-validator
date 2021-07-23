@@ -1,4 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
+import {Pkg} from './pkg.model';
 
 @model()
 export class Session extends Entity {
@@ -16,11 +17,11 @@ export class Session extends Entity {
   })
   type: string;
 
-  @property({
+  @property.array(Pkg, {
     type: 'array',
     itemType: 'object',
   })
-  pkgs?: object[];
+  pkgs?: Pkg[];
 
 
   constructor(data?: Partial<Session>) {
