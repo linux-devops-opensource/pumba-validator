@@ -11,7 +11,7 @@ Install the following extensions:
  - [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 ## Development workflow
- 
+
 ### Visual Studio Code
 
 1. Start the build task (Cmd+Shift+B) to run TypeScript compiler in the

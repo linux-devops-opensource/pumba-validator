@@ -1,9 +1,9 @@
-import {ApplicationConfig, PumbaValidatorApplication} from './application';
+import {ApplicationConfig, ValidatorApplication} from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new PumbaValidatorApplication(options);
+  const app = new ValidatorApplication(options);
   await app.boot();
   await app.start();
 
