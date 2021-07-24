@@ -42,7 +42,7 @@ export class SessionController {
     })
     session: Session,
   ): Promise<Session> {
-    let data = {
+    const data = {
       "apiVersion": "batch/v1",
       "kind": "Job",
       "metadata": {
