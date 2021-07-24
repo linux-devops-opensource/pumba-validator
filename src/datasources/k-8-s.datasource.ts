@@ -15,15 +15,16 @@ const config = {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      'Authorization': process.env.K8S_TOKEN,
+      'Authorization': process.env.K8S_TOKEN
     },
+    strictSSL: false
   },
   operations: [
     {
       template: {
         method: 'POST',
         url: BASE_URL + JOB_URL,
-        body: 'data'
+        body: '{data}'
       },
       functions: {
         startJob: ['data'],

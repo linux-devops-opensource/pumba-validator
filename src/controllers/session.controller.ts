@@ -1,3 +1,4 @@
+import {inject} from '@loopback/core';
 import {
   FilterExcludingWhere,
   repository,
@@ -14,11 +15,14 @@ import {
 } from '@loopback/rest';
 import {Session} from '../models';
 import {SessionRepository} from '../repositories';
+import {K8S} from '../services';
 
 export class SessionController {
   constructor(
     @repository(SessionRepository)
     public sessionRepository : SessionRepository,
+    @inject('services.K8S')
+    protected k8sService: K8S,
   ) {}
 
   @post('/session')
@@ -38,6 +42,34 @@ export class SessionController {
     })
     session: Session,
   ): Promise<Session> {
+    let data = {
+      "apiVersion": "batch/v1",
+      "kind": "Job",
+      "metadata": {
+        "name": "validator-" + session.type + "-" + session.sid
+      },
+      "spec": {
+        "template": {
+          "spec": {
+            "containers": [{
+              "name": "validator-" + session.type + "-" + session.sid,
+              "image": 'gcr.io/sodium-inverter-285420/pumba-' + session.type + '-validator:test',
+              "env": [{
+                "name": "SID",
+                "value": session.sid
+              },
+              {
+                "name": "DEBUG",
+                "value": "debug:*"
+              }],
+            }],
+            "restartPolicy": "Never"
+          }
+        }
+      }
+    }
+
+    await this.k8sService.startJob(data)
     return this.sessionRepository.create(session);
   }
 
