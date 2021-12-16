@@ -1,9 +1,9 @@
 import {Client, expect} from '@loopback/testlab';
-import {PumbaValidatorApplication} from '../..';
+import {ValidatorApplication} from '../..';
 import {setupApplication} from './test-helper';
 
 describe('PingController', () => {
-  let app: PumbaValidatorApplication;
+  let app: ValidatorApplication;
   let client: Client;
 
   before('setupApplication', async () => {

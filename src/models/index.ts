@@ -1,2 +1,2 @@
-export * from './package.model';
-export * from './session-state.model';
+export * from './pkg.model';
+export * from './session.model';

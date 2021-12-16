@@ -1,4 +1,4 @@
-# pumba-validator
+# validator
 
 This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
 [initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
@@ -72,21 +72,4 @@ npm test
 Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
 understand how you can continue to add features to this application.
 
-[![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
-
-
-## API documentation:
-### End points:
-#### /api/validate/{SID}/{PKG_TYPE}:
-##### POST
-
-Send a post request to openshift API to run validator job of {PKG TYPE} for session ID {SID}
-Get list of packages from validator pod that are successful and those that are not and their errors
-Return an array of packages wanted to validate with their return values (if succeeded or the error):
-{ "pkg_nameA", "succeeded" }
-{ "pkg_nameB", "ERROR: missing dependencies: X, Y, Z" }
-
-##### PUT
-
-Expecting SID, package name and if succeeded or failed and why.
-Create and push values into array of packages and their status.
+[![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
