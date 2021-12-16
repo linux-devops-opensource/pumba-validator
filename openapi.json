@@ -1,0 +1,330 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "validator",
+		"version": "0.0.1",
+		"description": "pumba validator",
+		"contact": {
+			"name": "Joshua",
+			"email": "shuki.grinman@gmail.com"
+		}
+	},
+	"paths": {
+		"/ping": {
+			"get": {
+				"x-controller-name": "PingController",
+				"x-operation-name": "ping",
+				"tags": [ "PingController" ],
+				"responses": {
+					"200": {
+						"description": "Ping Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PingResponse"
+								}
+							}
+						}
+					}
+				},
+				"operationId": "PingController.ping"
+			}
+		},
+		"/session": {
+			"post": {
+				"x-controller-name": "SessionController",
+				"x-operation-name": "create",
+				"tags": [ "SessionController" ],
+				"responses": {
+					"200": {
+						"description": "Session model instance",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Session"
+								}
+							}
+						}
+					}
+				},
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NewSession"
+							}
+						}
+					}
+				},
+				"operationId": "SessionController.create"
+			}
+		},
+		"/sessions/{id}": {
+			"put": {
+				"x-controller-name": "SessionController",
+				"x-operation-name": "replaceById",
+				"tags": [ "SessionController" ],
+				"responses": {
+					"204": {
+						"description": "No Content",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "Session PUT success"
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Session"
+							}
+						}
+					},
+					"x-parameter-index": 1
+				},
+				"operationId": "SessionController.replaceById"
+			},
+			"get": {
+				"x-controller-name": "SessionController",
+				"x-operation-name": "findById",
+				"tags": [ "SessionController" ],
+				"responses": {
+					"200": {
+						"description": "Session model instance",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SessionWithRelations"
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "filter",
+						"in": "query",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Session.Filter"
+								}
+							}
+						}
+					}
+				],
+				"operationId": "SessionController.findById"
+			},
+			"delete": {
+				"x-controller-name": "SessionController",
+				"x-operation-name": "deleteById",
+				"tags": [ "SessionController" ],
+				"responses": {
+					"204": {
+						"description": "No Content",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "Session DELETE success"
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"operationId": "SessionController.deleteById"
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	],
+	"components": {
+		"schemas": {
+			"Session": {
+				"title": "Session",
+				"type": "object",
+				"properties": {
+					"sid": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"pkgs": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					}
+				},
+				"required": [ "sid", "type" ],
+				"additionalProperties": false
+			},
+			"NewSession": {
+				"title": "NewSession",
+				"type": "object",
+				"description": "(tsType: Session, schemaOptions: { title: 'NewSession' })",
+				"properties": {
+					"sid": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"pkgs": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					}
+				},
+				"required": [ "sid", "type" ],
+				"additionalProperties": false,
+				"x-typescript-type": "Session"
+			},
+			"SessionWithRelations": {
+				"title": "SessionWithRelations",
+				"type": "object",
+				"description": "(tsType: SessionWithRelations, schemaOptions: { includeRelations: true })",
+				"properties": {
+					"sid": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"pkgs": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					}
+				},
+				"required": [ "sid", "type" ],
+				"additionalProperties": false,
+				"x-typescript-type": "SessionWithRelations"
+			},
+			"PingResponse": {
+				"type": "object",
+				"title": "PingResponse",
+				"properties": {
+					"greeting": {
+						"type": "string"
+					},
+					"date": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"headers": {
+						"type": "object",
+						"properties": {
+							"Content-Type": {
+								"type": "string"
+							}
+						},
+						"additionalProperties": true
+					}
+				}
+			},
+			"Session.Filter": {
+				"type": "object",
+				"title": "Session.Filter",
+				"properties": {
+					"offset": {
+						"type": "integer",
+						"minimum": 0
+					},
+					"limit": {
+						"type": "integer",
+						"minimum": 1,
+						"example": 100
+					},
+					"skip": {
+						"type": "integer",
+						"minimum": 0
+					},
+					"order": {
+						"oneOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						]
+					},
+					"fields": {
+						"oneOf": [
+							{
+								"type": "object",
+								"properties": {
+									"sid": {
+										"type": "boolean"
+									},
+									"type": {
+										"type": "boolean"
+									},
+									"pkgs": {
+										"type": "boolean"
+									}
+								},
+								"additionalProperties": false
+							},
+							{
+								"type": "array",
+								"items": {
+									"type": "string",
+									"enum": [ "sid", "type", "pkgs" ],
+									"example": "sid"
+								},
+								"uniqueItems": true
+							}
+						],
+						"title": "Session.Fields"
+					}
+				},
+				"additionalProperties": false,
+				"x-typescript-type": "@loopback/repository#Filter<Session>"
+			}
+		}
+	}
+}
