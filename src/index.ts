@@ -3,6 +3,16 @@ import {ApplicationConfig, ValidatorApplication} from './application';
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
+
+  // moved the variable check here so that the server won't start if they aren't defined, 
+  // instead of starting the server and then error-ing later 
+  if ( process.env.K8S_BASE_URL == undefined ) {
+    throw new Error('K8S_BASE_URL is not defined')
+  }
+  if ( process.env.JOB_URL == undefined) {
+    throw new Error('K8S_JOB_URL is not defined')
+  }
+
   const app = new ValidatorApplication(options);
   await app.boot();
   await app.start();
